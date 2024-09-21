@@ -16,5 +16,9 @@ public class StreamWithCollectorsJoining {
     var joiningString2 = stringList.stream ().collect (Collectors.joining ("_"));
 
     System.out.println (joiningString2);//one_two_three_four_five_six_seven_eight_nine
+
+    var joiningString3 = stringList.stream ().collect (Collectors.joining ("_", "{", "}"));
+
+    System.out.println (joiningString3);//{one_two_three_four_five_six_seven_eight_nine}
   }
 }
