@@ -23,4 +23,8 @@ public class StreamFindFirst {
     System.out.println (result.get ());
 
   }
+
+  public void validateClaims () {
+
+  }
 }
