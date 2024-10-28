@@ -6,12 +6,7 @@ package tech.java.streams;
 2.Get a list of product names from a list of Product objects.
 3.Find the longest string in a list of strings.
 4.Partition a list of integers into odd and even numbers.
-Get the distinct characters from a list of strings.
-Sort a list of employees by salary.
-Check if any string in a list has more than 5 characters.
-Find the second smallest number in a list of integers.
-Skip the first 5 elements in a list and then find the sum of the remaining elements.
-Get the average age from a list of Person objects.
+5.Get the distinct characters from a list of strings.
 */
 
 import java.util.Comparator;
@@ -47,6 +42,14 @@ public class StreamIntermediateOperation {
     var partitionPrime = numList.stream ().collect (Collectors.partitioningBy (
         StreamIntermediateOperation::isPrime));
     System.out.println (partitionPrime);
+
+    //5.Get the distinct characters from a list of strings.
+    List<String> strList = List.of ("@pb1e", "b@nan@", "ch3rry");
+    var distinctChar =
+        strList.stream ().flatMapToInt (String::chars).mapToObj (value -> (char) value).collect (
+            Collectors.toSet ());
+
+    System.out.println (distinctChar);
   }
 
   static boolean isPrime (int i) {
