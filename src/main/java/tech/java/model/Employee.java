@@ -14,9 +14,9 @@ public class Employee {
   private final Set<String> projectSet;
   private final List<Long> phoneNumber;
 
-  private Employee (
+  public Employee(
       Builder builder
-                   ) {
+  ) {
     this.employeeId = builder.employeeId;
     this.salary = builder.salary;
     this.email = builder.email;
@@ -26,45 +26,45 @@ public class Employee {
     this.phoneNumber = builder.phoneNumber;
   }
 
-  public Set<String> getProjectSet () {
+  public Set<String> getProjectSet() {
     return projectSet;
   }
 
-  public BigInteger getEmployeeId () {
+  public BigInteger getEmployeeId() {
     return employeeId;
   }
 
-  public Double getSalary () {
+  public Double getSalary() {
     return salary;
   }
 
-  public String getEmail () {
+  public String getEmail() {
     return email;
   }
 
-  public String getDepartment () {
+  public String getDepartment() {
     return department;
   }
 
-  public boolean isActive () {
+  public boolean isActive() {
     return isActive;
   }
 
-  public List<Long> getPhoneNumber () {
+  public List<Long> getPhoneNumber() {
     return phoneNumber;
   }
 
   @Override
-  public String toString () {
+  public String toString() {
     return "Employee{" +
-           "employeeId=" + employeeId +
-           ", salary=" + salary +
-           ", email='" + email + '\'' +
-           ", department='" + department + '\'' +
-           ", isActive=" + isActive +
-           ", projectSet=" + projectSet +
-           ", phoneNumber=" + phoneNumber +
-           '}';
+        "employeeId=" + employeeId +
+        ", salary=" + salary +
+        ", email='" + email + '\'' +
+        ", department='" + department + '\'' +
+        ", isActive=" + isActive +
+        ", projectSet=" + projectSet +
+        ", phoneNumber=" + phoneNumber +
+        '}';
   }
 
   public static class Builder {
@@ -77,41 +77,41 @@ public class Employee {
     private Set<String> projectSet;
     private List<Long> phoneNumber;
 
-    public Employee build () {
-      return new Employee (this);
+    public Employee build() {
+      return new Employee(this);
     }
 
-    public Builder employeeId (BigInteger employeeId) {
+    public Builder employeeId(BigInteger employeeId) {
       this.employeeId = employeeId;
       return this;
     }
 
-    public Builder salary (Double salary) {
+    public Builder salary(Double salary) {
       this.salary = salary;
       return this;
     }
 
-    public Builder email (String email) {
+    public Builder email(String email) {
       this.email = email;
       return this;
     }
 
-    public Builder department (String department) {
+    public Builder department(String department) {
       this.department = department;
       return this;
     }
 
-    public Builder isActive (boolean active) {
+    public Builder isActive(boolean active) {
       isActive = active;
       return this;
     }
 
-    public Builder projectSet (Set<String> projectSet) {
+    public Builder projectSet(Set<String> projectSet) {
       this.projectSet = projectSet;
       return this;
     }
 
-    public Builder phoneNumber (List<Long> phoneNumber) {
+    public Builder phoneNumber(List<Long> phoneNumber) {
       this.phoneNumber = phoneNumber;
       return this;
     }
