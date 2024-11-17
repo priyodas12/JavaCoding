@@ -10,26 +10,27 @@ import java.util.stream.Collectors;
 public class CryptoGenerator {
 
   public static void main(String[] args) {
-    Map<String, String> cryptoMapSm = getCryptoCombinationMap();
 
     Scanner scanner = new Scanner(System.in);
 
     System.out.println("enter any string:");
     String input = scanner.next();
     String encodedString = getEncodedString(input);
-    
+
     System.out.println("encoded string: " + encodedString);
   }
 
   private static String getEncodedString(String tobeEncoded) {
-    return Arrays.stream(tobeEncoded.split("")).map(letter -> {
-      return getCryptoCombinationMap().getOrDefault(letter, letter);
-    }).collect(Collectors.joining());
+    return Arrays.stream(tobeEncoded.split(""))
+        .map(letter -> getCryptoCombinationMap().getOrDefault(letter, letter))
+        .collect(Collectors.joining());
   }
 
   private static Map<String, String> getCryptoCombinationMap() {
     final String origin = "qwertyuiopasdfghjklzxcvbnm";
     final String seed = "zxcvbnmasdfghjklqwertyuiop";
+
+    List<String> originList1 = origin.chars().mapToObj(ch -> String.valueOf((char) ch)).toList();
 
     List<String> originList = Arrays.stream(origin.split("")).toList();
 
