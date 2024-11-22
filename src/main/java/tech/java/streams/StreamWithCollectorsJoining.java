@@ -5,20 +5,20 @@ import java.util.stream.Collectors;
 
 public class StreamWithCollectorsJoining {
 
-  public static void main (String[] args) {
-    var stringList = List.of (
+  public static void main(String[] args) {
+    var stringList = List.of(
         "one", "two", "three", "four", "five", "six", "seven", "eight", "nine");
 
-    var joiningString1 = stringList.stream ().collect (Collectors.joining ());
+    var joiningString1 = String.join("", stringList);
 
-    System.out.println (joiningString1);//onetwothreefourfivesixseveneightnine
+    System.out.println(joiningString1);//onetwothreefourfivesixseveneightnine
 
-    var joiningString2 = stringList.stream ().collect (Collectors.joining ("_"));
+    var joiningString2 = stringList.stream().collect(Collectors.joining("_"));
 
-    System.out.println (joiningString2);//one_two_three_four_five_six_seven_eight_nine
+    System.out.println(joiningString2);//one_two_three_four_five_six_seven_eight_nine
 
-    var joiningString3 = stringList.stream ().collect (Collectors.joining ("_", "{", "}"));
+    var joiningString3 = stringList.stream().collect(Collectors.joining("_", "{", "}"));
 
-    System.out.println (joiningString3);//{one_two_three_four_five_six_seven_eight_nine}
+    System.out.println(joiningString3);//{one_two_three_four_five_six_seven_eight_nine}
   }
 }
