@@ -1,5 +1,6 @@
 package tech.java.streams.problems;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -19,6 +20,21 @@ public class _01RemoveDuplicatesFromArray {
         .collect(Collectors.toSet());
 
     System.out.println(duplicates);
+
+    //from word
+    String str = "priyobrato";
+
+    var res = str.chars().mapToObj(c -> String.valueOf((char) c)).collect(Collectors.toSet());
+
+    System.out.println(res);
+
+    //from sentence
+    String str2 = "Stream this sentence into a list of words";
+    var wordMap = Arrays.stream(str2.split(" ")).sequential()
+        .collect(Collectors.groupingBy(st -> st, Collectors.counting()));
+
+    System.out.println(wordMap);
+
   }
 
 }
