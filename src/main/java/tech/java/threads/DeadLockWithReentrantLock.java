@@ -16,15 +16,17 @@ public class DeadLockWithReentrantLock {
         lock1.lock();
         System.out.println("Thread 1: Locked resource 1");
 
-        Thread.sleep(100);
+        Thread.sleep(1000);
 
         lock2.lock();
         System.out.println("Thread 1: Locked resource 2");
       } catch (InterruptedException e) {
         e.printStackTrace();
       } finally {
-        lock2.unlock();
         lock1.unlock();
+        System.out.println("Thread 1: unlocked resource 2");
+        lock2.unlock();
+        System.out.println("Thread 1: unlocked resource 1");
       }
     });
 
@@ -33,15 +35,17 @@ public class DeadLockWithReentrantLock {
         lock1.lock();
         System.out.println("Thread 2: Locked resource 1");
 
-        Thread.sleep(100);
+        Thread.sleep(2000);
 
         lock2.lock();
         System.out.println("Thread 2: Locked resource 2");
       } catch (InterruptedException e) {
         e.printStackTrace();
       } finally {
-        lock2.unlock();
         lock1.unlock();
+        System.out.println("Thread 2: unlocked resource 2");
+        lock2.unlock();
+        System.out.println("Thread 2: unlocked resource 1");
       }
     });
 

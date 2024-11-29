@@ -1,71 +1,55 @@
 package tech.java.threads;
 
 import java.time.Instant;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.stream.IntStream;
 
 public class ReadWriteLock {
 
   private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
-  private String sharedResource = "Initial Value";
+  AtomicInteger sharedAtomicInt = new AtomicInteger(1);
 
   public static void main(String[] args) {
-    ReadWriteLock example = new ReadWriteLock();
+    IntStream.rangeClosed(1, 15).forEach(i -> {
+      new Thread(() -> {
+        new ReadWriteLock().readResource();
+      }).start();
+    });
 
-    Runnable readTask = () -> {
-      for (int i = 0; i < 10; i++) {
-        example.readResource();
-        try {
-          Thread.sleep(100); // Simulate read delay
-        } catch (InterruptedException e) {
-          Thread.currentThread().interrupt();
-        }
-      }
-    };
-
-    Runnable writeTask = () -> {
-      for (int i = 0; i < 3; i++) {
-        example.writeResource("New Value " + i);
-        try {
-          Thread.sleep(300); // Simulate write delay
-        } catch (InterruptedException e) {
-          Thread.currentThread().interrupt();
-        }
-      }
-    };
-
-    Thread reader1 = new Thread(readTask, "Reader-1");
-    Thread reader2 = new Thread(readTask, "Reader-2");
-    Thread writer = new Thread(writeTask, "Writer");
-
-    reader1.start();
-    reader2.start();
-    writer.start();
+    IntStream.rangeClosed(1, 5).forEach(i -> {
+      new Thread(() -> {
+        new ReadWriteLock().writeResource();
+      }).start();
+    });
   }
 
-  public String readResource() {
-    lock.readLock().lock(); // Acquire read lock
+  private void readResource() {
     try {
-      System.out.println(
-          Thread.currentThread().getName() + " reading: " + sharedResource + ", Time: "
-              + Instant.now().getNano());
-      return sharedResource;
+      lock.readLock().lock();
+      Thread.sleep(1000);
+      System.out.println(sharedAtomicInt.get() +
+          " >> Reading resource at: " + Instant.now() + ", by: " + Thread.currentThread()
+          .getName());
+    } catch (Exception e) {
+      throw new RuntimeException(e);
     } finally {
-      lock.readLock().unlock(); // Release read lock
+      lock.readLock().unlock();
     }
   }
 
-  public void writeResource(String newValue) {
-    lock.writeLock().lock(); // Acquire write lock
+  private void writeResource() {
     try {
-      Thread.sleep(200);
-      System.out.println("------------------->" +
-          Thread.currentThread().getName() + " writing: " + newValue + ", Time: " + Instant.now()
-          .getNano());
-      sharedResource = newValue;
-    } catch (InterruptedException e) {
+      lock.writeLock().lock();
+      sharedAtomicInt.getAndIncrement();
+      Thread.sleep(1000);
+      System.out.println(sharedAtomicInt.get() +
+          " >> Writing resource at: " + Instant.now() + ", by: " + Thread.currentThread()
+          .getName());
+    } catch (Exception e) {
       throw new RuntimeException(e);
     } finally {
-      lock.writeLock().unlock(); // Release write lock
+      lock.writeLock().unlock();
     }
   }
 }
